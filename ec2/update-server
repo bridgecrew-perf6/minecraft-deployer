@@ -1,0 +1,25 @@
+#!/bin/bash
+# ./update-server stop minecraft-ec2
+# ./update-server start minecraft-ec2
+
+ACTION=${1:-stop}
+NAME=${2:-minecraft-ec2}
+PROFILE=${3:-default}
+
+if [ "$ACTION" = "stop" ]; then
+    FILTER="running"
+fi
+if [ "$ACTION" = "start" ]; then
+    FILTER="stopped"
+fi
+
+INSTANCE=$(
+  aws ec2 describe-instances \
+    --filters "Name=tag:Name,Values=$NAME" "Name=instance-state-name,Values=$FILTER" \
+    --query "Reservations[].Instances[].InstanceId" \
+    --output text \
+    --profile $PROFILE
+)
+
+echo "Instance: $INSTANCE"
+aws ec2 $ACTION-instances --instance-ids $INSTANCE --profile $PROFILE

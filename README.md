@@ -43,8 +43,8 @@ Minecraft at `$PUBLIC_IP:25565` after a minute or two.
 ### Managing the EC2 based deployment
 
 - Access: `./access-server minecraft-ec2`
-- Start: `./start-server minecraft-ec2`
-- Stop: `./stop-server minecraft-ec2`
+- Start: `./update-server start minecraft-ec2`
+- Stop: `./update-server stop minecraft-ec2`
 - Terminate: `./terminate-server`
 
 ### Destroying resources

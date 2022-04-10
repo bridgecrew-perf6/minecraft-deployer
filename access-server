@@ -1,0 +1,16 @@
+#!/bin/bash
+# ./access-server minecraft-ec2
+
+NAME=${1}
+PROFILE=${2:-default}
+
+INSTANCE=$(
+  aws ec2 describe-instances \
+    --filters "Name=tag:Name,Values=$NAME" "Name=instance-state-name,Values=running" \
+    --query "Reservations[].Instances[].InstanceId" \
+    --output text \
+    --profile $PROFILE
+)
+
+echo "Instance: $INSTANCE"
+aws ssm start-session --target $INSTANCE --profile $PROFILE

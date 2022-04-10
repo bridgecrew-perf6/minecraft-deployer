@@ -7,6 +7,7 @@ PROFILE=${3:-default}
 
 if [ -f "$DEPLOYMENT/terraform.tfstate" ]; then
   aws s3 cp $DEPLOYMENT/terraform.tfstate s3://$BUCKET_NAME/ --profile $PROFILE
+  aws s3 cp $DEPLOYMENT/terraform.tfvars s3://$BUCKET_NAME/ --profile $PROFILE
 else
   echo "State file not found at: $DEPLOYMENT/terraform.tfstate"
 fi

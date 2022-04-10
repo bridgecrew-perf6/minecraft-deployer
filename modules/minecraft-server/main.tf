@@ -18,8 +18,12 @@ resource "aws_instance" "minecraft" {
 }
 
 resource "aws_eip" "minecraft" {
-  instance = aws_instance.minecraft.id
-  vpc      = true
+  vpc = true
+}
+
+resource "aws_eip_association" "minecraft" {
+  instance_id   = aws_instance.minecraft.id
+  allocation_id = aws_eip.minecraft.id
 }
 
 resource "aws_security_group" "minecraft" {

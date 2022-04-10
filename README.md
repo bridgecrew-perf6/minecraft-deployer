@@ -31,7 +31,7 @@ tfenv install
 ```bash
 terraform init
 terraform plan
- # and if happy with the plan
+# and if happy with the plan
 terraform apply -auto-approve
 ```
 
@@ -40,11 +40,11 @@ terraform apply -auto-approve
 - Access: `./access-server minecraft-ec2`
 - Start: `./start-server minecraft-ec2`
 - Stop: `./stop-server minecraft-ec2`
-- Terminate: `./terminate-server minecraft-ec2`
+- Terminate: `./terminate-server`
 
 ### Destroying resources
 
-To destroy all AWS reources you can run `terraform destroy`. To target specific
+To destroy all AWS reources you can run `terraform destroy`. To target a specific
 resource use `terraform destroy -target=$resource`, for example:
 `terraform destroy -target=module.minecraft-server.aws_instance.minecraft`.
 
@@ -64,9 +64,13 @@ The state is backed up whenever Terraform apply is run.
 It can also be backed up by running:
 
 ```bash
+# Make a backup
 aws s3 cp terraform.tfstate s3//$bucket_name/ --profile $profile
-# Example:
 aws s3 cp terraform.tfstate s3//minecraft-ec2-deployer/ --profile default
+
+# Download the backup
+aws s3 cp s3//$bucket_name/terraform.tfstate . --profile $profile
+aws s3 cp s3//minecraft-ec2-deployer/terraform.tfstate . --profile default
 ```
 
 Minecraft deployer is not using the s3 backend to avoid referencing a specific resource

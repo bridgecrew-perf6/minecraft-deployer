@@ -51,4 +51,8 @@ data "aws_vpc" "main" {
 
 data "template_file" "setup" {
  template = file("${path.module}/files/setup.sh.tpl")
+
+  vars = {
+    efs_dns = var.efs_dns
+  }
 }

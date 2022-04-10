@@ -24,6 +24,37 @@ resource "aws_efs_file_system" "main" {
   }
 }
 
+resource "aws_efs_file_system_policy" "main" {
+  file_system_id = aws_efs_file_system.main.id
+
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Id": "Policy01",
+  "Statement": [
+    {
+      "Sid": "Statement",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Resource": "${aws_efs_file_system.main.arn}",
+      "Action": [
+        "elasticfilesystem:ClientMount",
+        "elasticfilesystem:ClientRootAccess",
+        "elasticfilesystem:ClientWrite"
+      ],
+      "Condition": {
+        "Bool": {
+          "aws:SecureTransport": "false"
+        }
+      }
+    }
+  ]
+}
+POLICY
+}
+
 resource "aws_efs_mount_target" "main" {
   count = length(var.subnets)
 

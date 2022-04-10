@@ -28,6 +28,8 @@ provider "aws" {
 
 module "network" {
   source = "../modules/network"
+
+  vpc_enable_dns_hostnames = true
 }
 
 module "efs" {

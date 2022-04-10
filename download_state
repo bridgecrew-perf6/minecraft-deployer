@@ -1,6 +1,4 @@
 #!/bin/bash
-
-#!/bin/bash
 # ./download_state ec2 minecraft-ec2-deployer
 
 DEPLOYMENT=${1}

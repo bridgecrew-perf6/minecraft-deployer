@@ -11,7 +11,8 @@ services:
       INIT_MEMORY: "${minecraft_init_memory}"
       MAX_MEMORY: "${minecraft_max_memory}"
       MOTD: "${minecraft_motd}"
+      OPS: "${minecraft_ops}"
       OVERRIDE_SERVER_PROPERTIES: "${minecraft_override}"
-    restart: unless-stopped
+    restart: always
     volumes:
       - ${minecraft_mount}:/data

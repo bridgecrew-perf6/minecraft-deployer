@@ -14,7 +14,7 @@ variable "efs_mount_location" {
 
 variable "instance_type" {
   type = string
-  default = "t3.small"
+  default = "t3.medium"
 }
 
 variable "ip_whitelist" {
@@ -69,6 +69,7 @@ data "template_file" "docker" {
     minecraft_max_memory  = var.minecraft_max_memory
     minecraft_motd        = var.minecraft_motd
     minecraft_mount       = "${var.efs_mount_location}/minecraft"
+    minecraft_ops         = var.minecraft_ops
     minecraft_override    = "true"
     minecraft_port        = var.minecraft_port
     minecraft_version     = var.minecraft_version

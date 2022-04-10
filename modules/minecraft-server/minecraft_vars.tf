@@ -5,17 +5,22 @@ variable "minecraft_enable_rcon" {
 
 variable "minecraft_init_memory" {
   type = string
-  default = "1536M"
+  default = "3G"
 }
 
 variable "minecraft_max_memory" {
   type = string
-  default = "1536M"
+  default = "3G"
 }
 
 variable "minecraft_motd" {
   type = string
   default = "It's-a me, Minecraft!"
+}
+
+variable "minecraft_ops" {
+  type = string
+  default = ""
 }
 
 variable "minecraft_port" {

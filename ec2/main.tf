@@ -1,3 +1,7 @@
+variable "bucket_name" {
+  default = "minecraft-ec2"
+}
+
 variable "name" {
   default = "minecraft-ec2"
 }
@@ -43,6 +47,7 @@ module "efs" {
 module "minecraft-server" {
   source = "../modules/minecraft-server"
 
+  bucket_name = var.bucket_name
   efs_dns = module.efs.efs-mount-target-dns
   name = var.name
   subnets = module.network.public_subnets

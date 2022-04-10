@@ -29,6 +29,8 @@ tfenv install
 ### Run Terraform
 
 ```bash
+cp terraform.tfvars.example terraform.tfvars
+# edit terraform.tfvars values as needed
 terraform init
 terraform plan
 # and if happy with the plan

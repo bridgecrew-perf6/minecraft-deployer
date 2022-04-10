@@ -1,7 +1,8 @@
-instance_type=t3.small
-ip_whitelist=["0.0.0.0/0]
-name=minecraft-ec2
-region=us-west-2
-profile=default
+bucket_name="minecraft-ec2-deployer"
+instance_type="t3.small"
+ip_whitelist=["0.0.0.0/0"]
+name="minecraft-ec2"
+region="us-west-2"
+profile="default"
 vpc_cidr_block="10.0.0.0/16"
 ubuntu_version="20.04"

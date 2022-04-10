@@ -1,3 +1,8 @@
+
+variable "bucket_name" {
+  type = string
+}
+
 variable "efs_dns" {
   type = string
 }

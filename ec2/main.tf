@@ -2,6 +2,14 @@ variable "bucket_name" {
   default = "minecraft-ec2-deployer"
 }
 
+variable "ip_whitelist" {
+  default = ["0.0.0.0/0"]
+}
+
+variable "minecraft_ops" {
+  default = ""
+}
+
 variable "minecraft_version" {
   default = "latest"
 }
@@ -53,11 +61,13 @@ module "minecraft-server" {
 
   bucket_name = var.bucket_name
   efs_dns = module.efs.efs-mount-target-dns
+  ip_whitelist = var.ip_whitelist
   name = var.name
   subnets = module.network.public_subnets
   vpc_id = module.network.vpc_id
 
   # MINECRAFT CFG
+  minecraft_ops     = var.minecraft_ops
   minecraft_version = var.minecraft_version
 }
 

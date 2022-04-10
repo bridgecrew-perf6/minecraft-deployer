@@ -37,6 +37,9 @@ terraform plan
 terraform apply -auto-approve
 ```
 
+Terraform apply will output a public IP address which can be used to access
+Minecraft at `$PUBLIC_IP:25565` after a minute or two.
+
 ### Managing the EC2 based deployment
 
 - Access: `./access-server minecraft-ec2`
@@ -60,13 +63,13 @@ It can be backed up by running:
 
 ```bash
 # Make a backup
-aws s3 cp terraform.tfstate s3//$bucket_name/ --profile $profile
-aws s3 cp terraform.tfstate s3//minecraft-ec2-deployer/ --profile default
+aws s3 cp terraform.tfstate s3://$bucket_name/ --profile $profile
+aws s3 cp terraform.tfstate s3://minecraft-ec2-deployer/ --profile default
 # TODO: ./upload_state $BUCKET_NAME $PROFILE
 
 # Download the backup
-aws s3 cp s3//$bucket_name/terraform.tfstate . --profile $profile
-aws s3 cp s3//minecraft-ec2-deployer/terraform.tfstate . --profile default
+aws s3 cp s3://$bucket_name/terraform.tfstate . --profile $profile
+aws s3 cp s3://minecraft-ec2-deployer/terraform.tfstate . --profile default
 # TODO: ./download_state $BUCKET_NAME $PROFILE
 ```
 

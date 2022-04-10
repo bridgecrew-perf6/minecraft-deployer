@@ -1,6 +1,7 @@
 bucket_name="minecraft-ec2-deployer"
 instance_type="t3.small"
 ip_whitelist=["0.0.0.0/0"]
+minecraft_version="latest"
 name="minecraft-ec2"
 region="us-west-2"
 profile="default"

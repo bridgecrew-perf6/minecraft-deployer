@@ -1,5 +1,9 @@
 variable "bucket_name" {
-  default = "minecraft-ec2"
+  default = "minecraft-ec2-deployer"
+}
+
+variable "minecraft_version" {
+  default = "latest"
 }
 
 variable "name" {
@@ -52,6 +56,9 @@ module "minecraft-server" {
   name = var.name
   subnets = module.network.public_subnets
   vpc_id = module.network.vpc_id
+
+  # MINECRAFT CFG
+  minecraft_version = var.minecraft_version
 }
 
 output "minecraft_ip" {

@@ -2,6 +2,14 @@ resource "aws_s3_bucket" "minecraft" {
   bucket = var.bucket_name
 }
 
+resource "aws_s3_object" "minecraft" {
+  bucket  = var.bucket_name
+  key     = "docker-compose.yml"
+  content = data.template_file.docker.rendered
+
+  depends_on = [aws_s3_bucket.minecraft]
+}
+
 resource "aws_s3_bucket_acl" "minecraft" {
   bucket = aws_s3_bucket.minecraft.id
   acl    = "private"
@@ -27,7 +35,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "minecraft" {
 
   rule {
     apply_server_side_encryption_by_default {
-      kms_master_key_id = aws_kms_key.mykey.arn
       sse_algorithm     = "aws:kms"
     }
   }

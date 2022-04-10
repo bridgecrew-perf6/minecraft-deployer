@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#!/bin/bash
+# ./download_state ec2 minecraft-ec2-deployer
+
+DEPLOYMENT=${1}
+BUCKET_NAME=${2}
+PROFILE=${3:-default}
+
+if [ ! -f "$DEPLOYMENT/terraform.tfstate" ]; then
+  aws s3 cp s3://$BUCKET_NAME/terraform.tfstate $DEPLOYMENT/terraform.tfstate  --profile $PROFILE
+else
+  echo "Cannot download state. You must first delete the existing state file at: $DEPLOYMENT/terraform.tfstate"
+fi

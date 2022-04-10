@@ -1,0 +1,12 @@
+#!/bin/bash
+# ./upload_state ec2 minecraft-ec2-deployer
+
+DEPLOYMENT=${1}
+BUCKET_NAME=${2}
+PROFILE=${3:-default}
+
+if [ -f "$DEPLOYMENT/terraform.tfstate" ]; then
+  aws s3 cp $DEPLOYMENT/terraform.tfstate s3://$BUCKET_NAME/ --profile $PROFILE
+else
+  echo "State file not found at: $DEPLOYMENT/terraform.tfstate"
+fi

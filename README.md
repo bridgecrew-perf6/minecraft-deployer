@@ -63,14 +63,10 @@ It can be backed up by running:
 
 ```bash
 # Make a backup
-aws s3 cp terraform.tfstate s3://$bucket_name/ --profile $profile
-aws s3 cp terraform.tfstate s3://minecraft-ec2-deployer/ --profile default
-# TODO: ./upload_state $BUCKET_NAME $PROFILE
+./upload_state $BUCKET_NAME $PROFILE # state file must exist
 
 # Download the backup
-aws s3 cp s3://$bucket_name/terraform.tfstate . --profile $profile
-aws s3 cp s3://minecraft-ec2-deployer/terraform.tfstate . --profile default
-# TODO: ./download_state $BUCKET_NAME $PROFILE
+./download_state $BUCKET_NAME $PROFILE # state file must be removed first
 ```
 
 Minecraft deployer is not using the s3 backend to avoid referencing a specific resource

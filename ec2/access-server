@@ -1,7 +1,7 @@
 #!/bin/bash
 # ./access-server minecraft-ec2
 
-NAME=${1}
+NAME=${1:-minecraft-ec2}
 PROFILE=${2:-default}
 
 INSTANCE=$(

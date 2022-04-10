@@ -56,23 +56,18 @@ Minecraft deployer is using the `local` backend to record Terraform state,
 therefore it is important to backup the `ec2` and / or `ecs` directories copy
 of `terraform.tfstate`.
 
-TODO:
-
-The state is backed up whenever Terraform apply is run.
-
-- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket
-- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object
-
-It can also be backed up by running:
+It can be backed up by running:
 
 ```bash
 # Make a backup
 aws s3 cp terraform.tfstate s3//$bucket_name/ --profile $profile
 aws s3 cp terraform.tfstate s3//minecraft-ec2-deployer/ --profile default
+# TODO: ./upload_state $BUCKET_NAME $PROFILE
 
 # Download the backup
 aws s3 cp s3//$bucket_name/terraform.tfstate . --profile $profile
 aws s3 cp s3//minecraft-ec2-deployer/terraform.tfstate . --profile default
+# TODO: ./download_state $BUCKET_NAME $PROFILE
 ```
 
 Minecraft deployer is not using the s3 backend to avoid referencing a specific resource

@@ -3,7 +3,7 @@
 Deploys Minecraft to [AWS](#) using either:
 
 - [EC2](#)
-- [ECS Fargate](#)
+- [ECS Fargate](#) -- TODO
 
 ## Setup
 
@@ -59,7 +59,7 @@ Minecraft deployer is using the `local` backend to record Terraform state,
 therefore it is important to backup the `ec2` and / or `ecs` directories copy
 of `terraform.tfstate`.
 
-It can be backed up by running:
+It can be backed up by running (from the project root directory):
 
 ```bash
 # Make a backup

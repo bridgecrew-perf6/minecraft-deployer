@@ -1,0 +1,8 @@
+#!/bin/bash
+
+BUCKET_NAME=${1:-minecraft-ec2-deployer}
+NAME=${2:-minecraft-ec2}
+PROFILE=${3:-default}
+
+./cmd-server "cd /root && aws s3 cp s3://$BUCKET_NAME/docker-compose.yml ." $NAME $PROFILE
+./restart-minecraft $NAME $PROFILE

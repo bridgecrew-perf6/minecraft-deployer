@@ -1,0 +1,6 @@
+#!/bin/bash
+
+NAME=${1:-minecraft-ec2}
+PROFILE=${2:-default}
+
+./cmd-server "cd /root && docker-compose stop && docker-compose rm -f && docker-compose up --detach" $NAME $PROFILE

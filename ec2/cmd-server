@@ -1,0 +1,21 @@
+#!/bin/bash
+
+CMD=${1:-whoami}
+NAME=${2:-minecraft-ec2}
+PROFILE=${3:-default}
+
+INSTANCE=$(
+  aws ec2 describe-instances \
+    --filters "Name=tag:Name,Values=$NAME" "Name=instance-state-name,Values=running" \
+    --query "Reservations[].Instances[].InstanceId" \
+    --output text \
+    --profile $PROFILE
+)
+
+echo "Instance: $INSTANCE"
+aws ssm send-command \
+    --instance-ids $INSTANCE \
+    --document-name "AWS-RunShellScript" \
+    --parameters commands="$CMD" \
+    --output text \
+    --profile $PROFILE

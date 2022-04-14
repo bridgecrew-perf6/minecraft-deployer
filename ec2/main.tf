@@ -74,3 +74,15 @@ module "minecraft-server" {
 output "minecraft_ip" {
   value = module.minecraft-server.ip
 }
+
+resource "null_resource" "minecraft_server_tag" {
+  provisioner "local-exec" {
+    command = <<-EOT
+    aws ec2 create-tags \
+      --resources ${module.minecraft-server.spot_id} \
+      --tags Key=Name,Value=${var.name} \
+      --region ${var.region} \
+      --profile ${var.profile}
+  EOT
+  }
+}

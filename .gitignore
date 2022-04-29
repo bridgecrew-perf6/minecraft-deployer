@@ -1,4 +1,9 @@
+.terragrunt-cache/
 .terraform/
+.terraform.lock.hcl
 backend.tfvars
+ec2-deploy/
+ecs-deploy/
 *terraform.tfstate*
 terraform.tfvars
+*/*/terragrunt.hcl

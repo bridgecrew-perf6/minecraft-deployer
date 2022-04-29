@@ -3,6 +3,7 @@ variable "bucket_name" {
 }
 
 variable "ip_whitelist" {
+  type = list(string)
   default = ["0.0.0.0/0"]
 }
 

@@ -4,7 +4,11 @@ resource "aws_spot_instance_request" "minecraft" {
   instance_type          = var.instance_type
   subnet_id              = var.subnets[0]
   vpc_security_group_ids = [aws_security_group.minecraft.id]
-  user_data              = data.template_file.setup.rendered
+  user_data              = templatefile("${path.module}/files/setup.sh.tpl", {
+    bucket_name = var.bucket_name
+    efs_dns = var.efs_dns
+    efs_mount_location = var.efs_mount_location
+  })
 
   # SPOT
   spot_type            = "persistent"

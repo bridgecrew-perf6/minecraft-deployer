@@ -1,6 +1,0 @@
-bucket="minecraft-deployer-tfstate"
-dynamodb_table="minecraft-deployer-tfstate-lock"
-encrypt=true
-key="terraform.tfstate"
-profile="default"
-region="us-west-2"

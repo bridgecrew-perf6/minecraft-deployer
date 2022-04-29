@@ -1,5 +1,5 @@
 #!/bin/bash
-# ./access-server minecraft-ec2
+# ./ec2_access-server minecraft-ec2
 
 NAME=${1:-minecraft-ec2}
 PROFILE=${2:-default}

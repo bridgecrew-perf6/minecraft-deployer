@@ -58,30 +58,3 @@ data "aws_ami" "ubuntu" {
 data "aws_vpc" "main" {
   id = var.vpc_id
 }
-
-data "template_file" "docker" {
- template = file("${path.module}/files/docker-compose.yml.tpl")
-
-  vars = {
-    minecraft_enable_rcon = var.minecraft_enable_rcon
-    minecraft_eula        = "true"
-    minecraft_init_memory = var.minecraft_init_memory
-    minecraft_max_memory  = var.minecraft_max_memory
-    minecraft_motd        = var.minecraft_motd
-    minecraft_mount       = "${var.efs_mount_location}/minecraft"
-    minecraft_ops         = var.minecraft_ops
-    minecraft_override    = "true"
-    minecraft_port        = var.minecraft_port
-    minecraft_version     = var.minecraft_version
-  }
-}
-
-data "template_file" "setup" {
- template = file("${path.module}/files/setup.sh.tpl")
-
-  vars = {
-    bucket_name = var.bucket_name
-    efs_dns = var.efs_dns
-    efs_mount_location = var.efs_mount_location
-  }
-}

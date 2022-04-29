@@ -1,0 +1,31 @@
+#!/bin/bash
+# ./bootstrap minecraft-deployer default
+
+ENV_ID=${1}
+PROFILE=${2}
+REGION=${3:-us-west-2}
+
+aws s3api create-bucket \
+  --region ${REGION} \
+  --create-bucket-configuration LocationConstraint="${REGION}" \
+  --acl private \
+  --bucket "${ENV_ID}-tfstate" \
+  --profile $PROFILE
+
+aws s3api put-bucket-versioning \
+  --bucket "${ENV_ID}-tfstate" \
+  --versioning-configuration Status=Enabled \
+  --profile $PROFILE
+
+aws s3api put-public-access-block \
+  --bucket "${ENV_ID}-tfstate" \
+  --public-access-block-configuration BlockPublicAcls=True,IgnorePublicAcls=True,BlockPublicPolicy=True,RestrictPublicBuckets=True \
+  --profile $PROFILE
+
+aws dynamodb create-table \
+  --region ${REGION} \
+  --table-name ${ENV_ID}-tfstate-lock \
+  --attribute-definitions AttributeName=LockID,AttributeType=S \
+  --key-schema AttributeName=LockID,KeyType=HASH \
+  --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
+  --profile $PROFILE

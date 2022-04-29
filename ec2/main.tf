@@ -28,7 +28,7 @@ variable "profile" {
 
 terraform {
   required_version = "1.1.8"
-  backend "local" {}
+  backend "s3" {}
 }
 
 provider "aws" {

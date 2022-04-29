@@ -10,6 +10,13 @@ Deploys Minecraft to [AWS](#) using either:
 - Download and configure the [AWS CLI](https://aws.amazon.com/cli/).
 - Download and install [tfenv](https://github.com/tfutils/tfenv) for managing [Terraform](https://www.terraform.io/)
 
+Run the bootstrap script to create a state bucket and lock table for Terraform:
+
+```bash
+./bootstrap $ENV_ID $AWS_PROFILE
+./bootstrap minecraft-deployer default
+```
+
 ## Steps
 
 ### Choose the deployment option
@@ -29,9 +36,10 @@ tfenv install
 ### Run Terraform
 
 ```bash
+cp backend.tfvars.example backend.tfvars
 cp terraform.tfvars.example terraform.tfvars
-# edit terraform.tfvars values as needed
-terraform init
+# edit backend.tfvars & terraform.tfvars values as needed
+terraform init -backend-config=backend.tfvars
 terraform plan
 # and if happy with the plan
 terraform apply -auto-approve
@@ -52,22 +60,3 @@ Minecraft at `$PUBLIC_IP:25565` after a minute or two.
 To destroy all AWS reources you can run `terraform destroy`. To target a specific
 resource use `terraform destroy -target=$resource`, for example:
 `terraform destroy -target=module.minecraft-server.aws_instance.minecraft`.
-
-## Terraform State backup
-
-Minecraft deployer is using the `local` backend to record Terraform state,
-therefore it is important to backup the `ec2` and / or `ecs` directories copy
-of `terraform.tfstate`.
-
-It can be backed up by running (from the project root directory):
-
-```bash
-# Make a backup
-./upload_state $BUCKET_NAME $PROFILE # state file must exist
-
-# Download the backup
-./download_state $BUCKET_NAME $PROFILE # state file must be removed first
-```
-
-Minecraft deployer is not using the s3 backend to avoid referencing a specific resource
-as variables are not allowed by Terraform in the backend configuration.

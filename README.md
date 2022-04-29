@@ -23,6 +23,8 @@ Run the bootstrap script to create a state bucket and lock table for Terraform:
 
 ```bash
 cd ec2 # or ecs
+mkdir mc1 # any folder name you want to allow for multiple environments
+mkdir mc2 # optional, 2nd environment
 ```
 
 All subsequent commands will be run from the chosen deployment option directory.
@@ -36,13 +38,13 @@ tfenv install
 ### Run Terraform
 
 ```bash
-cp backend.tfvars.example backend.tfvars
-cp terraform.tfvars.example terraform.tfvars
+cp backend.tfvars.example mc1/backend.tfvars
+cp terraform.tfvars.example mc1/terraform.tfvars
 # edit backend.tfvars & terraform.tfvars values as needed
-terraform init -backend-config=backend.tfvars
-terraform plan
+terraform init -reconfigure -backend-config=mc1/backend.tfvars
+terraform plan -var-file=mc1/terraform.tfvars
 # and if happy with the plan
-terraform apply -auto-approve
+terraform apply -var-file=mc1/terraform.tfvars -auto-approve
 ```
 
 Terraform apply will output a public IP address which can be used to access

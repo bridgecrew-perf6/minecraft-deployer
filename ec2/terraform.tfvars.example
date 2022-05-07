@@ -1,4 +1,4 @@
-bucket_name="minecraft-ec2-deployer"
+bucket_name="$BUCKET"
 instance_type="t3.medium"
 ip_whitelist=["0.0.0.0/0"]
 minecraft_ops=""
